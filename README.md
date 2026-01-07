@@ -10,7 +10,13 @@ When using `fetchAuthSession()` to retrieve JWT payload data, the TypeScript typ
 
 The actual runtime data contains these properties, but TypeScript doesn't recognize them, causing type errors.
 
-## Setup Instructions
+## Production Deployment
+
+The production version is deployed at: https://d1lbm0dgwdwqjo.amplifyapp.com
+
+**Note:** The production deployment uses a frontend-only setup that connects to a pre-deployed sandbox backend. This demonstrates the JWT groups issue in a live environment while keeping the deployment simple.
+
+## Local Development Setup
 
 1. **Install dependencies:**
    ```bash
