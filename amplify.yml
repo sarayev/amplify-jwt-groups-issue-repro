@@ -4,7 +4,8 @@ backend:
     build:
       commands:
         - npm ci --cache .npm --prefer-offline
-        - cd amplify && npm ci --cache .npm --prefer-offline
+        - cd amplify && npm install --cache .npm --prefer-offline
+        - cd amplify && npm rebuild
         - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
 frontend:
   phases:
