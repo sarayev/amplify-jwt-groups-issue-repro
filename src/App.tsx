@@ -1,17 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
 import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth'
-import type { JwtPayload } from 'aws-amplify/auth'
 import outputs from '../amplify_outputs.json'
 
-interface JwtPayloadWithGroups extends JwtPayload {
+interface CustomJwtPayload {
+  sub?: string
+  aud?: string | string[]
+  iss?: string
+  exp?: number
+  iat?: number
+  [key: string]: any
+}
+
+interface JwtPayloadWithGroups extends CustomJwtPayload {
   'cognito:groups'?: string[]
   scope?: string
 }
 
 function App() {
-  const [jwtPayload, setJwtPayload] = useState<JwtPayload | null>(null)
+  const [jwtPayload, setJwtPayload] = useState<CustomJwtPayload | null>(null)
   const [rawJwtToken, setRawJwtToken] = useState<string>('')
   const [decodedRawPayload, setDecodedRawPayload] = useState<any>(null)
   const [typeIssueDemo, setTypeIssueDemo] = useState<string>('')
@@ -56,9 +64,9 @@ function App() {
         
         // This will cause TypeScript errors - demonstrating the issue
         try {
-          // @ts-expect-error - This is the issue we're reproducing
+          // This is the issue we're reproducing - cognito:groups missing from types
           const groups = payload['cognito:groups']
-          // @ts-expect-error - This is also missing from types
+          // This is also missing from types
           const scope = payload.scope
           
           setTypeIssueDemo(`

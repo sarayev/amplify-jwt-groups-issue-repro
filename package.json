@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@aws-amplify/backend": "^1.0.0",
     "@aws-amplify/cli": "^14.2.3",
     "@aws-amplify/ui-react": "^6.0.0",
     "aws-amplify": "^6.0.0",
